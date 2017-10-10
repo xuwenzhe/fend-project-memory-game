@@ -4,6 +4,7 @@
 
 * [Instructions](#instructions)
 * [Contributing](#contributing)
+* [Demo](#demo)
 
 ## Instructions
 
@@ -19,4 +20,6 @@ This repository is the starter code for _all_ Udacity students. Therefore, we mo
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Check out [here]()
+## Demo
+
+click [here](https://xuwenzhe.github.io/fend-project-memory-game/)
