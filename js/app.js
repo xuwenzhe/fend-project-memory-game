@@ -10,9 +10,9 @@ var startTime;
 
 // timer
 var timer = setInterval(function() {
-	let now = new Date().getTime();
-	let distance = now - startTime;
-	let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    let now = new Date().getTime();
+    let distance = now - startTime;
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
     let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     let seconds = Math.floor((distance % (1000 * 60)) / 1000);
@@ -21,12 +21,13 @@ var timer = setInterval(function() {
     if (hours > 0) timeString += hours + "h ";
     if (minutes > 0) timeString += minutes + "m ";
     timeString += seconds + "s";
-	$('.timer').html(timeString);
+    $('.timer').html(timeString);
 }, 500);
 
+console.log(timer);
 // reset game listener
 $(".restart").click(function() {
-	initGame();
+    initGame();
 });
 
 
@@ -35,39 +36,39 @@ $(".restart").click(function() {
 
 // initialize memory game
 function initGame() {
-	let cards = shuffle(symbols);
-	
-	$(".stars").empty();
-	for (var i = 0; i < 3; i++) {
-		let star = $('<li><i class="fa fa-star"></i></li>');
-		$(".stars").append(star);
-	}
-	$(".moves").text("0");
-	// initial global vars
-	open = [];
-	moves = 0;
-	match = 0;
-	stars = 3;
-	// activate timer
-	startTime = new Date().getTime();
+    let cards = shuffle(symbols);
+    
+    $(".stars").empty();
+    for (var i = 0; i < 3; i++) {
+        let star = $('<li><i class="fa fa-star"></i></li>');
+        $(".stars").append(star);
+    }
+    $(".moves").text("0");
+    // initial global vars
+    open = [];
+    moves = 0;
+    match = 0;
+    stars = 3;
+    // activate timer
+    startTime = new Date().getTime();
 
-	// add event listeners to each card
-	// handler function : clickCard()
-	$(".deck").empty();
-	for (var i = 0; i < cards.length; i++) {
-		let card = $('<li class="card"><i class="fa fa-'+cards[i]+'"></i></li>')
-		$(".deck").append(card);
-		card.click(clickCard);
-	}
+    // add event listeners to each card
+    // handler function : clickCard()
+    $(".deck").empty();
+    for (var i = 0; i < cards.length; i++) {
+        let card = $('<li class="card"><i class="fa fa-'+cards[i]+'"></i></li>')
+        $(".deck").append(card);
+        card.click(clickCard);
+    }
 }
 
 // When all cards are successfully flipped, 
 // confirm dialog shows up giving gamer's performance 
 // in time usage and star level.
 function endGame() {
-	clearInterval(timer);
-	let playAgain = confirm("Congratulations! You used " + ((new Date().getTime()-startTime)/1000).toFixed(2) + " seconds with " + stars + "stars. Play again?");
-	if (playAgain) initGame();
+    clearInterval(timer);
+    let playAgain = confirm("Congratulations! You used " + ((new Date().getTime()-startTime)/1000).toFixed(2) + " seconds with " + stars + "stars. Play again?");
+    if (playAgain) initGame();
 }
 
 
@@ -109,51 +110,47 @@ function shuffle(array) {
 // helper function
 // compare whether two flipped cards match
 function getSymbol(card) {
-	return card.children().attr('class').substring(6);
+    return card.children().attr('class').substring(6);
 }
 
 // handler
 function clickCard() {
-	let currentCard = $(this);
-	currentCard.addClass('open show');
+    let currentCard = $(this);
+    currentCard.addClass('open show');
 
-	// first card in the "two" group
-	if (open.length == 0) {
-		open.push(currentCard);
-	}
-	// second card in the "two" group
-	else {
-		// timeout is 500 ms
-		setTimeout(function() {
-			moves++;
-			currentCard.removeClass('open show');
-			open[0].removeClass('open show');
-			if (getSymbol(currentCard) == getSymbol(open[0])) {
-				match++;
-				currentCard.addClass('match');
-				open[0].addClass('match');
-			}
-			open.pop();
-			$(".moves").text(moves);
+    // first card in the "two" group
+    if (open.length == 0) {
+        open.push(currentCard);
+    }
+    // second card in the "two" group
+    else {
+        // timeout is 500 ms
+        setTimeout(function() {
+            moves++;
+            currentCard.removeClass('open show');
+            open[0].removeClass('open show');
+            if (getSymbol(currentCard) == getSymbol(open[0])) {
+                match++;
+                currentCard.addClass('match');
+                open[0].addClass('match');
+            }
+            open.pop();
+            $(".moves").text(moves);
 
-			if (moves == 15) {
-				$(".stars").children().last().remove();
-				stars--;
-			}
-			if (moves == 30) {
-				$(".stars").children().last().remove();
-				stars--;
-			}
-			if (moves == 45) {
-				$(".stars").children().last().remove();
-				stars--;
-			}
-			if (match == 8) {
-				endGame();
-			}
-		}, 500);
-		
-	}
+            if (moves == 15) {
+                $(".stars").children().last().remove();
+                stars--;
+            }
+            if (moves == 30) {
+                $(".stars").children().last().remove();
+                stars--;
+            }
+            if (match == 8) {
+                endGame();
+            }
+        }, 500);
+        
+    }
 }
 
 // main function
