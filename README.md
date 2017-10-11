@@ -4,6 +4,7 @@
 
 * [Instructions](#instructions)
 * [Contributing](#contributing)
+* [Features](#features)
 * [Demo](#demo)
 
 ## Instructions
@@ -20,6 +21,9 @@ This repository is the starter code for _all_ Udacity students. Therefore, we mo
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Game Rules
+There are 8 pairs of cards. Each pair has its unique symbol. Gamers are expected to flip two different cards in a row, which is called a "move" operation. If these two cards match, both of them will get revealed. Otherwise, both of them will go back to uncovered status. Your job is to reveal all 8 pairs of cards. A restart button is designed for reset the game. A timer is provided to show the time usage. Gamers' performance is based on both total number of moves and time usage. Gamers get 3 stars when they win the game within 15 moves, 2 stars with 15-30 moves, and 1 star for over 30 moves. Good luck and have fun!
+
 ## Demo
 
-click [here](https://xuwenzhe.github.io/fend-project-memory-game/)
+Click [here](https://xuwenzhe.github.io/fend-project-memory-game/)
