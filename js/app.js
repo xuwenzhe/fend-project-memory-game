@@ -9,30 +9,12 @@ var stars = 3;
 var startTime;
 
 // timer
-var timer = setInterval(function() {
-    let now = new Date().getTime();
-    let distance = now - startTime;
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    let timeString = "";
-    if (days > 0) timeString += days + "d ";
-    if (hours > 0) timeString += hours + "h ";
-    if (minutes > 0) timeString += minutes + "m ";
-    timeString += seconds + "s";
-    $('.timer').html(timeString);
-}, 500);
+var timer;
 
-console.log(timer);
 // reset game listener
 $(".restart").click(function() {
     initGame();
 });
-
-
-
-
 
 // initialize memory game
 function initGame() {
@@ -51,7 +33,20 @@ function initGame() {
     stars = 3;
     // activate timer
     startTime = new Date().getTime();
-
+    timer = setInterval(function() {
+        let now = new Date().getTime();
+        let distance = now - startTime;
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        let timeString = "";
+        if (days > 0) timeString += days + "d ";
+        if (hours > 0) timeString += hours + "h ";
+        if (minutes > 0) timeString += minutes + "m ";
+        timeString += seconds + "s";
+        $('.timer').html(timeString);
+    }, 500);
     // add event listeners to each card
     // handler function : clickCard()
     $(".deck").empty();
@@ -70,8 +65,6 @@ function endGame() {
     let playAgain = confirm("Congratulations! You used " + ((new Date().getTime()-startTime)/1000).toFixed(2) + " seconds with " + stars + "stars. Play again?");
     if (playAgain) initGame();
 }
-
-
 
 /*
  * Display the cards on the page
@@ -94,7 +87,6 @@ function shuffle(array) {
 
     return array;
 }
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
